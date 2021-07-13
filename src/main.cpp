@@ -11,11 +11,12 @@
 #define OLED_RESET 4
 Adafruit_SSD1306 oled(128, 64, &Wire, OLED_RESET);
 
-LiquidCrystal lcd(3, 5, 6, 7, 8, 9);
+LiquidCrystal lcd(3, 5, 6, 7, 8, 9);//定义LCD的引脚
 
 int second, minute, hour = 0;
 int state = 0;
 
+//刷新LCD
 void refresh()
 {
   lcd.clear();
@@ -29,6 +30,7 @@ void refresh()
   Serial.println(state);
 }
 
+//外部中断，外部电平改变后，触发中断
 void change_state()
 {
   Serial.println("state changed");
@@ -54,6 +56,7 @@ void setup()
 
 void loop()
 {
+  //初始暂停状态
   if (state == 0)
   {
     hour = 0;
@@ -61,6 +64,7 @@ void loop()
     second = 0;
     refresh();
   }
+  //开始计时状态
   else if (state == 2)
   {
     do
